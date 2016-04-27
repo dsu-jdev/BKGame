@@ -2,15 +2,21 @@
 #ifndef LIB_LIST_H_
 #define LIB_LIST_H_
 
+#include <iostream>
+
+using namespace std;
+
 template<typename T>
 struct List {
+	string id;
 	T *data;
 	List<T> *next;
 };
 
 template<typename T>
-void addList(List<T> *list, T *data) {
-	if (list->data == 0x0) {
+void addList(List<T> *list, string id, T *data) {
+	if (list->id == 0x0) {
+		list->id = id;
 		list->data = data;
 		return;
 	}
@@ -21,19 +27,23 @@ void addList(List<T> *list, T *data) {
 	}
 
 	List<T> *l = new List<T>;
+	l->id = id;
 	l->data = data;
 
 	i->next = l;
 }
 
 template<class T>
-T *getList(List<T> *list, int index) {
-	List<T> *l = list;
-	for (int i = 0; i < index; i++) {
-		l = l->next;
+T *getList(List<T> *list, string id) {
+	List<T> *i= list;
+	while (i->id != 0x0) {
+		if (i->id == id) {
+			return i->data;
+		}
+		i = i->next;
 	}
 
-	return l->data;
+	return i->data;
 }
 
 #endif /* LIB_LIST_H_ */

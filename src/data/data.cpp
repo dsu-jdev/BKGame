@@ -14,6 +14,10 @@ List<Map> *readData() {
 
 	while (ifs >> str) {
 		if (str.find("MAP") == 0) {
+			if (id != 0x0) {
+				addList(listMap, id, map);
+			}
+
 			map = new Map;
 			listObj = new List<Object>;
 			id = str;
@@ -32,23 +36,26 @@ List<Map> *readData() {
 			ifs >> obj->scale;
 			ifs >> obj->swivelAngle;
 
-			addList(listObj, obj);
+			addList(listObj, objID, obj);
+			putMap(map, id, listObj);
 		}
 
-//		if (str.find("GOTO") == 0) {
-//			SpecialObject *obj = new SpecialObject;
-//			obj->objID = objID;
-//			obj->id = str.substr(4);
-//			ifs >> obj->gotoMap;
-//			ifs >> obj->positionMap;
-//			ifs >> obj->positionObj;
-//			ifs >> obj->distance;
-//
-//			putMap(map->next, obj->gotoMap, map->next->listObj);
-//		}
+		if (str.find("GOTO") == 0) {
+			SpecialObject *obj = new SpecialObject;
+			obj->objID = objID;
+			obj->id = str;
+			ifs >> obj->gotoMap;
+			ifs >> obj->positionMap;
+			ifs >> obj->positionObj;
+			ifs >> obj->distance;
+
+			addList(listObj, str, obj);
+
+			string mapID = "MAP" + obj->gotoMap;
+			Map *m = getList(listMap, mapID);
+			putMap(map, "MAP" + obj->gotoMap, m->data);
+		}
 	}
-	putMap(map, id, listObj);
-	addList(listMap, map);
 
 	return listMap;
 }
