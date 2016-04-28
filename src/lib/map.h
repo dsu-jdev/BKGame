@@ -1,21 +1,18 @@
 
-#ifndef MAP_H_
-#define MAP_H_
-
-#include <iostream>
+#ifndef LIB_MAP_H_
+#define LIB_MAP_H_
 
 #include "list.h"
 #include "object.h"
 
-using namespace std;
-
 struct Map {
 	string id;
 	List<Object> *data;
+	string currPos;
 	Map *next;
 };
 
 void putMap(Map *map, string id, List<Object> *data);
 Map *getMap(Map *map, string);
 
-#endif /* MAP_H_ */
+#endif /* LIB_MAP_H_ */

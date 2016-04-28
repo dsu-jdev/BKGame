@@ -1,8 +1,11 @@
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 #include <stdio_ext.h>
 
 #include "menu.h"
+#include "../data/data.h"
+#include "../gameplay/map_info.h"
+#include "../gameplay/modify.h"
 #include "../gameplay/move.h"
 #include "../gameplay/search.h"
 #include "../info/info.h"
@@ -11,14 +14,14 @@ using namespace std;
 
 const string ERROR = "Loi: chuc nang khong ton tai";
 
-void title() {
+void logo() {
 	cout << "__________ ____  __.   ________                       " << endl;
 	cout << "\\______   \\    |/ _|  /  _____/_____    _____   ____  " << endl;
 	cout << " |    |  _/      <   /   \\  ___\\__  \\  /     \\_/ __ \\ " << endl;
 	cout << " |    |   \\    |  \\  \\    \\_\\  \\/ __ \\|  Y Y  \\  ___/ " << endl;
 	cout << " |______  /____|__ \\  \\______  (____  /__|_|  /\\___  >" << endl;
 	cout << "        \\/        \\/         \\/     \\/      \\/     \\/ " << endl;
-
+	init();
 }
 
 void mainMenu() {
@@ -35,6 +38,9 @@ void chooseMainMenu() {
 
 	switch (ch) {
 	case '1':
+		cout << endl;
+		showMapInfo();
+		cout << endl;
 		gameMenu();
 		break;
 
@@ -60,9 +66,9 @@ void chooseMainMenu() {
 }
 
 void gameMenu() {
-	cout << endl;
-	// co mot dong hien thi thong tin vi tri hien tai o day... cout << "Vi tri hien tai: ...";
-	cout << "1 - Di chuyen		2 - Chuyen den map...		3 - Tim duong		4 - Quay lai" << endl;
+	cout << "1 - Di chuyen		2 - Tim duong" << endl;
+	cout << "3 - Them map		4 - Sua map" << endl;
+	cout << "5 - Quay lai" << endl;
 	chooseGameMenu();
 }
 
@@ -77,14 +83,18 @@ void chooseGameMenu() {
 		break;
 
 	case '2':
-		gotoMap();
-		break;
-
-	case '3':
 		findPath();
 		break;
 
+	case '3':
+		addMap();
+		break;
+
 	case '4':
+		editMap();
+		break;
+
+	case '5':
 		mainMenu();
 		break;
 

@@ -36,14 +36,15 @@ void addList(List<T> *list, string id, T *data) {
 template<class T>
 T *getList(List<T> *list, string id) {
 	List<T> *i= list;
-	while (i->id != "") {
+	while (i != 0x0) {
 		if (i->id == id) {
 			return i->data;
 		}
+
 		i = i->next;
 	}
 
-	return i->data;
+	return 0x0;
 }
 
 #endif /* LIB_LIST_H_ */

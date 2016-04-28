@@ -1,5 +1,5 @@
 MAP01
-OBJ0001
+OBJ001
 doorBedroom
 models/door.obj
 6,8,3
@@ -930,4 +930,3 @@ GOTO34
 02
 6,7,0
 6,5,3
-stop

@@ -2,7 +2,7 @@
 #ifndef MENU_MENU_H_
 #define MENU_MENU_H_
 
-void title();
+void logo();
 void mainMenu();
 void chooseMainMenu();
 

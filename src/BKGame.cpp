@@ -1,7 +1,7 @@
 #include "menu/menu.h"
 
-//int main(int argc, char **argv) {
-//	title();
-//	mainMenu();
-//	return 0;
-//}
+int main(int argc, char **argv) {
+	logo();
+	mainMenu();
+	return 0;
+}

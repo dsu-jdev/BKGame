@@ -5,6 +5,6 @@
 #include "lib/object.h"
 #include "data/data.h"
 
-int main(int argc, char **argv) {
-	show(readData());
-}
+//int main(int argc, char **argv) {
+//	show(readData());
+//}

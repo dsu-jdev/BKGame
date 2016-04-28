@@ -1,7 +1,7 @@
 #include "map.h"
 
 void putMap(Map *map, string id, List<Object> *data) {
-	if (map->data == 0x0) {
+	if (map->id == "") {
 		map->id = id;
 		map->data = data;
 		return;
