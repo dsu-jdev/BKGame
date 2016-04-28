@@ -1,11 +1,12 @@
 
-#ifndef DATA_H_
-#define DATA_H_
+#ifndef DATA_DATA_H_
+#define DATA_DATA_H_
 
 #include "../lib/object.h"
 #include "../lib/list.h"
 #include "../lib/map.h"
 
 List<Map> *readData();
+void show(List<Map> *listMap);
 
-#endif /* DATA_H_ */
+#endif /* DATA_DATA_H_ */

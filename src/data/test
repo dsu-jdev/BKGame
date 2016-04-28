@@ -1,4 +1,15 @@
 MAP01
+OBJ0001
+doorBedroom
+models/door.obj
+6,8,3
+0,0,0
+1,1,1
+GOTO1
+02
+8,10,0
+6,8,3
+0.3
 OBJ002
 table
 models/table.obj

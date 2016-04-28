@@ -6,5 +6,5 @@
 #include "data/data.h"
 
 int main(int argc, char **argv) {
-	List<Map> *lm = readData();
+	show(readData());
 }

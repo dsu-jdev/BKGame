@@ -15,7 +15,7 @@ struct List {
 
 template<typename T>
 void addList(List<T> *list, string id, T *data) {
-	if (list->id == 0x0) {
+	if (list->id == "") {
 		list->id = id;
 		list->data = data;
 		return;
@@ -36,7 +36,7 @@ void addList(List<T> *list, string id, T *data) {
 template<class T>
 T *getList(List<T> *list, string id) {
 	List<T> *i= list;
-	while (i->id != 0x0) {
+	while (i->id != "") {
 		if (i->id == id) {
 			return i->data;
 		}
