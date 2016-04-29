@@ -4,9 +4,10 @@
 
 #include "../data/data.h"
 
-Map _currMap;
+extern List<Map> data;
+extern Map currMap;
 
-void showMapInfo();
 void init();
+void showMapInfo();
 
 #endif /* GAMEPLAY_MAP_INFO_H_ */

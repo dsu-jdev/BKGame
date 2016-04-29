@@ -12,7 +12,7 @@
 
 using namespace std;
 
-const string ERROR = "Loi: chuc nang khong ton tai";
+const string ERROR = "Loi: Chuc nang khong ton tai";
 
 void logo() {
 	cout << "__________ ____  __.   ________                       " << endl;
@@ -27,7 +27,7 @@ void logo() {
 void mainMenu() {
 	cout << endl;
 	cout << "Lua chon chuc nang bang cac so tuong ung" << endl;
-	cout << "1 - Choi game		2 - Thong tin		3 - Thoat" << endl;
+	cout << "[1] - Choi game		[2] - Thong tin		[3] - Thoat" << endl;
 	chooseMainMenu();
 }
 
@@ -52,7 +52,7 @@ void chooseMainMenu() {
 		cout << "Ban co chac chan muon thoat? [Y/N] ";
 		__fpurge(stdin);
 		ch = cin.get();
-		if (ch == 'Y' || ch == 'y') {
+		if (ch == 'Y' || ch == 'y' || ch == '\n') {
 			exit(0);
 		} else {
 			mainMenu();
@@ -66,9 +66,9 @@ void chooseMainMenu() {
 }
 
 void gameMenu() {
-	cout << "1 - Di chuyen		2 - Tim duong" << endl;
-	cout << "3 - Them map		4 - Sua map" << endl;
-	cout << "5 - Quay lai" << endl;
+	cout << "[1] - Di chuyen		[2] - Tim duong" << endl;
+	cout << "[3] - Them map		[4] - Sua map" << endl;
+	cout << "[5] - Quay lai" << endl;
 	chooseGameMenu();
 }
 

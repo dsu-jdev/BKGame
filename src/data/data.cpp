@@ -3,11 +3,12 @@
 #include "data.h"
 
 List<Map> *readData() {
-	ifstream ifs("src//data//data.map");
+	ifstream ifs("data.map");
 
 	List<Map> *listMap = new List<Map>;
-	List<Object> *listObj;
 	Map *map;
+	List<Object> *listObj;
+	Object *obj;
 
 	string id;
 	string objID;
@@ -25,9 +26,8 @@ List<Map> *readData() {
 		}
 
 		if (str.find("OBJ") == 0) {
-			Object *obj = new Object;
 			objID = str;
-
+			obj = new Object;
 			obj->id = objID;
 			ifs >> obj->name;
 			ifs >> obj->directory;
@@ -40,15 +40,16 @@ List<Map> *readData() {
 		}
 
 		if (str.find("GOTO") == 0) {
-			SpecialObject *obj = new SpecialObject;
-			obj->objID = objID;
-			obj->id = str;
-			ifs >> obj->gotoMap;
-			ifs >> obj->positionMap;
-			ifs >> obj->positionObj;
-			ifs >> obj->distance;
+			SpecialObject *spclObj = new SpecialObject;
+			spclObj->objID = objID;
+			spclObj->id = str;
+			ifs >> spclObj->gotoMap;
+			ifs >> spclObj->positionMap;
+			ifs >> spclObj->positionObj;
+			ifs >> spclObj->distance;
+			obj->spclObj = spclObj;
 
-			string mapID = "MAP" + obj->gotoMap;
+			string mapID = "MAP" + spclObj->gotoMap;
 
 			putMap(map, mapID, 0x0);
 		}

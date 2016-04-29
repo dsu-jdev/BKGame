@@ -4,7 +4,18 @@
 
 #include <iostream>
 
+#include "list.h"
+
 using namespace std;
+
+struct SpecialObject {
+	string objID;
+	string id;
+	string gotoMap;
+	string positionMap;
+	string positionObj;
+	string distance;
+};
 
 struct Object {
 	int _no;
@@ -14,16 +25,10 @@ struct Object {
 	string position;
 	string scale;
 	string swivelAngle;
+	SpecialObject *spclObj;
 };
 
-struct SpecialObject {
-	string objID;
-	string id;
-	string gotoMap;
-	string positionMap;
-	string positionObj;
-	string distance;
-	SpecialObject *next;
-};
+void showObject(List<Object> *listObj);
+Object *getObject(List<Object> *listObj, int no);
 
 #endif /* LIB_OBJECT_H_ */

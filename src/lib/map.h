@@ -14,5 +14,6 @@ struct Map {
 
 void putMap(Map *map, string id, List<Object> *data);
 Map *getMap(Map *map, string);
+bool existsMap(List<Map> *listMap);
 
 #endif /* LIB_MAP_H_ */
