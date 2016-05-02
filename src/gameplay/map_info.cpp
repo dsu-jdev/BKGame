@@ -6,19 +6,25 @@
 
 using namespace std;
 
-List<Map> data = *readData();
-Map currMap;
+List<Map<List<Object> > > *data = readData(); // Du lieu tat ca cac ban do
+Map<List<Object> > curMap; // Du lieu cua map hien tai
 
+/*
+ * Khoi tao cac gia tri mac dinh khi bat dau tro choi
+ */
 void init() {
-	currMap = *getList(&data, "MAP01");
-	currMap.currPos = "0,0,0";
+	curMap = *getList(data, "MAP01");
+	curMap.currPos = "0,0,0";
 }
 
+/*
+ * Hien thi thong tin tat ca cac doi tuong co trong map khi nguoi choi di chuyen
+ */
 void showMapInfo() {
 	cout << "================================================================" << endl;
-	cout << "Map hien tai: " << currMap.id << endl;
-	cout << "Vi tri: " << currMap.currPos << endl;
+	cout << "Map hien tai: " << curMap.id << endl;
+	cout << "Vi tri: " << curMap.currPos << endl;
 	cout << "Cac doi tuong co trong map:" << endl;
-	showObject(currMap.data);
-	cout << "================================================================" << endl << endl;
+	showObject(curMap.data);
+	cout << "================================================================" << endl;
 }

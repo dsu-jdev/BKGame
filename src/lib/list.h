@@ -18,6 +18,7 @@ void addList(List<T> *list, string id, T *data) {
 	if (list->id == "") {
 		list->id = id;
 		list->data = data;
+		list->next = 0x0;
 		return;
 	}
 
@@ -29,11 +30,12 @@ void addList(List<T> *list, string id, T *data) {
 	List<T> *l = new List<T>;
 	l->id = id;
 	l->data = data;
+	l->next = 0x0;
 
 	i->next = l;
 }
 
-template<class T>
+template<typename T>
 T *getList(List<T> *list, string id) {
 	List<T> *i= list;
 	while (i != 0x0) {

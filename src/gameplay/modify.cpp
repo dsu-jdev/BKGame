@@ -2,53 +2,233 @@
 #include <stdio_ext.h>
 
 #include "modify.h"
+#include "map_info.h"
 #include "../lib/map.h"
 #include "../menu/menu.h"
 
 using namespace std;
 
-void addObject(List<Object> *listObj) {
-	Object *obj= new Object;
-	cout << "Nhap thong tin cac doi tuong them vao ban do ([B] - Quay lai)" << endl;
+Map<List<Object> > *map;
+List<Object> *listObj;
+string mapID;
 
-	cout << "Ma doi tuong: ";
+/*
+ * Them cac doi tuong vao map da duoc xac dinh
+ *
+ * Neu doi tuong moi them vao la doi tuong dac biet
+ * thi phai them mot doi tuong moi (cung phai la doi tuong dac biet) vao map duoc chuyen den
+ * de dam bao 2 map co the di lai duoc voi nhau
+ *
+ * Qua trinh them cac doi tuong ket thuc khi nguoi choi nhan phim [0] se quay lai menu
+ */
+void addObject() {
+	cout << endl;
+	cout << "Nhap thong tin cac doi tuong them vao ban do ([0] - Quay lai)" << endl;
+
+	cout << "Ma doi tuong: OBJ";
 	string objID;
 	cin >> objID;
-	if (objID == "B" || objID == "b") {
-		gameMenu();
+	if (objID == "0") {
+		List<Object> *l = 0x0;
+		putMap(map, mapID, l);
+		return;
 	}
+
+	Object *obj= new Object;
+	obj->id = "OBJ" + objID;
 
 	cout << "Ten doi tuong: ";
 	cin >> obj->name;
 
-	cout << "Vi tri: ";
+	cout << "Vi tri x,y,z: ";
 	cin >> obj->position;
 
-	cout << "Ti le: ";
+	cout << "Ti le x,y,z: ";
 	cin >> obj->scale;
 
-	cout << "Goc xoay: ";
+	cout << "Goc xoay x,y,z: ";
 	cin >> obj->swivelAngle;
 
-	cout << "Co la doi tuong dac biet khong [Y/N] ";
-	char check;
-	__fpurge(stdin);
-	check = cin.get();
-	if (check == 'Y' || check == 'y') {
+	obj->spclObj = 0x0;
 
+	cout << "Co la doi tuong dac biet khong? [Y/N] ";
+	__fpurge(stdin);
+	char isSpecial = cin.get();
+
+	if (isSpecial == 'Y' || isSpecial == 'y') {
+		SpecialObject *spclObj = new SpecialObject;
+		spclObj->objID = obj->id;
+
+		cout << "Ma doi tuong: GOTO";
+		cin >> spclObj->id;
+		spclObj->id = "GOTO" + spclObj->id;
+
+		cout << "Cac map co the chuyen den: ";
+		List<Map<List<Object> > > *i = data;
+		while (i != 0x0) {
+			if (i->id != mapID) {
+				cout << i->id << "  ";
+			}
+			i = i->next;
+		}
+		cout << endl;
+
+		Map<List<Object> > *gotoMap;
+
+		do {
+			cout << "Nhap ma ban do phai chuyen den (tru ky tu MAP): ";
+			cin >> spclObj->gotoMap;
+			string gotoMapID = "MAP" + spclObj->gotoMap;
+
+			if (gotoMapID == mapID) {
+				cout << "Loi: Khong the chuyen den chinh no." << endl;
+				continue;
+			}
+
+			gotoMap = getList(data, gotoMapID);
+			if (gotoMap == 0x0) {
+				cout << "Loi: Ma ban do khong ton tai." << endl;
+			}
+
+		} while (gotoMap == 0x0);
+
+		cout << "Vi tri x,y,z cua ban do moi: ";
+		cin >> spclObj->positionMap;
+
+		spclObj->positionObj = obj->position;
+		obj->spclObj = spclObj;
+
+
+		cout << "****************" << endl;
+		cout << "Nhap thong tin doi tuong moi cua ban do duoc chuyen den" << endl;
+
+		Object *gotoObj = new Object;
+		cout << "Ma doi tuong: OBJ";
+		string gotoID;
+		cin >> gotoID;
+		gotoObj->id = "OBJ" + gotoID;
+
+		cout << "Ten doi tuong: ";
+		cin >> gotoObj->name;
+
+		cout << "Vi tri x,y,z: ";
+		cin >> gotoObj->position;
+
+		cout << "Ti le x,y,z: ";
+		cin >> gotoObj->scale;
+
+		cout << "Goc xoay x,y,z: ";
+		cin >> gotoObj->swivelAngle;
+
+
+		SpecialObject *gotoSpclObj = new SpecialObject;
+		gotoSpclObj->objID = gotoObj->id;
+
+		cout << "Ma doi tuong dac biet: GOTO";
+		cin >> gotoSpclObj->id;
+		gotoSpclObj->id = "GOTO" + gotoSpclObj->id;
+
+		gotoSpclObj->gotoMap = mapID.substr(3);
+
+		cout << "Vi tri x,y,z cua ban do moi: ";
+		cin >> gotoSpclObj->positionMap;
+
+		gotoSpclObj->positionObj = gotoObj->position;
+		gotoObj->spclObj = gotoSpclObj;
+
+		addList(gotoMap->data, mapID, gotoObj);
+		putMap(gotoMap, mapID, new List<Object>);
 	}
 
-	addObject(listObj);
+	addList(listObj, objID, obj);
+	putMap(map, mapID, listObj);
+
+	addObject();
 }
 
+/*
+ * Chinh sua mot doi tuong trong map da duoc xac dinh
+ * bang cach nhap STT cua doi tuong muon chinh sua
+ *
+ * Neu trong map khong co doi tuong nao thi nguoi choi duoc yeu cau them cac doi tuong moi vao map
+ *
+ * Qua trinh chinh sua ket thuc khi nguoi choi nhan phim [0] de quay lai menu
+ */
+void editObject() {
+	cout << endl;
+	if (map->data == 0x0) {
+		cout << mapID << " hien khong co doi tuong, nhan [Enter] de them moi cac doi tuong...";
+		__fpurge(stdin);
+		cin.get();
+		addObject();
+	} else {
+		cout << "Cac doi tuong co trong " << mapID << endl;
+		showObject(map->data);
+		cout << endl;
+		while (true) {
+			cout << "Nhap STT tuong ung cac doi tuong de sua ([0] - Quay lai): ";
+			int ch;
+			cin >> ch;
+			if (ch == 0) {
+				editMapMenu();
+			}
+
+			listObj = map->data;
+			while (listObj != 0x0 && listObj->data->_no != ch) {
+				listObj = listObj->next;
+			}
+
+			if (listObj == 0x0) {
+				cout << "Loi: Doi tuong khong ton tai." << endl;
+				continue;
+			}
+
+			Object *editObj = listObj->data;
+			Object *temp = new Object;
+			cout << "Ban dang sua doi tuong " << ch << endl;
+			cout << "Ma doi tuong (" << editObj->id << "): OBJ";
+			cin >> temp->id;
+			temp->id = "OBJ" + temp->id;
+
+			cout << "Ten doi tuong (" << editObj->name << "): ";
+			cin >> temp->name;
+
+			cout << "Vi tri x,y,z (" << editObj->position << "): ";
+			cin >> temp->position;
+
+			cout << "Ti le x,y,z (" << editObj->scale << "): ";
+			cin >> temp->scale;
+
+			cout << "Goc xoay x,y,z (" << editObj->swivelAngle << "): ";
+			cin >> temp->swivelAngle;
+
+			temp->spclObj = editObj->spclObj;
+
+			cout << "Luu cac thay doi? [Y/N] ";
+			__fpurge(stdin);
+			char save = cin.get();
+			if (save == 'Y' || save == 'y') {
+				*editObj = *temp;
+			}
+		}
+	}
+}
+
+/*
+ * Them mot map moi vao danh sach cac map,
+ * dong thoi nguoi choi se duoc yeu cau them cac doi tuong
+ * vao map moi duoc tao ra
+ */
 void addMap() {
-	cout << "Nhap ma ban do muon them ([B] - Quay lai): ";
-	string mapID;
+	cout << endl;
+	cout << "Nhap ma ban do muon them ([0] - Quay lai): MAP";
 	cin >> mapID;
-	if (mapID == "B" || mapID == "b") {
+	if (mapID == "0") {
 		gameMenu();
 	}
-	List<Map> *i = &data;
+
+	mapID = "MAP" + mapID;
+	List<Map<List<Object> > > *i = data;
 	while (i != 0x0) {
 		if (i->id == mapID) {
 			cout << "Loi: Ma ban do da ton tai." << endl;
@@ -57,14 +237,45 @@ void addMap() {
 		i = i->next;
 	}
 
+	map = new Map<List<Object> >;
+	listObj = new List<Object>;
 
+	addObject();
 
-//	List
+	addList(data, mapID, map);
+	addMap();
 }
 
+/*
+ * Chon mot map bat ky de chinh sua bang cach nhap vao ma ban do
+ *
+ * Sau do co cac tuy chon de nguoi choi sua doi tuong dang co trong map,
+ * hoac them doi tuong moi vao map
+ */
 void editMap() {
-	cout << "Chuc nang dang duoc xay dung, quay lai sau...";
-	__fpurge(stdin);
-	cin.get();
-	gameMenu();
+	cout << endl;
+	cout << "Cac map co the sua: ";
+	List<Map<List<Object> > > *i = data;
+	while (i != 0x0) {
+		cout << i->id << "  ";
+		i = i->next;
+	}
+
+	while (true) {
+		cout << endl;
+		cout << "Nhap ma ban do muon chinh sua ([0] - Quay lai): MAP";
+		cin >> mapID;
+		if (mapID == "0") {
+			gameMenu();
+		}
+
+		mapID = "MAP" + mapID;
+		map = getList(data, mapID);
+		if (map == 0x0) {
+			cout << "Loi: Ma ban do khong ton tai." << endl;
+			editMap();
+		}
+
+		editMapMenu();
+	}
 }

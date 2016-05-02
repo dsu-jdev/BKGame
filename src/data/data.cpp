@@ -2,11 +2,15 @@
 
 #include "data.h"
 
-List<Map> *readData() {
+/*
+ * Doc du lieu tu file
+ * Tra ve List cac map cung voi cac doi tuong ben trong map
+ */
+List<Map<List<Object> > > *readData() {
 	ifstream ifs("data.map");
 
-	List<Map> *listMap = new List<Map>;
-	Map *map;
+	List<Map<List<Object> > > *listMap = new List<Map<List<Object> > >;
+	Map<List<Object> > *map;
 	List<Object> *listObj;
 	Object *obj;
 
@@ -20,7 +24,7 @@ List<Map> *readData() {
 				addList(listMap, id, map);
 			}
 
-			map = new Map;
+			map = new Map<List<Object> >;
 			listObj = new List<Object>;
 			id = str;
 		}
@@ -51,7 +55,7 @@ List<Map> *readData() {
 
 			string mapID = "MAP" + spclObj->gotoMap;
 
-			putMap(map, mapID, 0x0);
+			putMap(map, mapID, new List<Object>);
 		}
 	}
 
@@ -59,11 +63,11 @@ List<Map> *readData() {
 	return listMap;
 }
 
-void show(List<Map> *listMap) {
-	List<Map> *list = listMap;
+void show(List<Map<List<Object> > > *listMap) {
+	List<Map<List<Object> > > *list = listMap;
 	while (list != 0x0) {
 		cout << list->id << ":";
-		Map *map = list->data->next;
+		Map<List<Object> > *map = list->data->next;
 		while (map != 0x0) {
 			cout << " " << map->id;
 			map = map->next;

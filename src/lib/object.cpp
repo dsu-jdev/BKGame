@@ -24,7 +24,3 @@ void showObject(List<Object> *listObj) {
 		i = i->next;
 	}
 }
-
-//Object *getObject(List<Object> *listObj, int no) {
-//
-//}

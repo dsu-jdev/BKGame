@@ -4,6 +4,7 @@
 
 #include "menu.h"
 #include "../data/data.h"
+#include "../gameplay/check.h"
 #include "../gameplay/map_info.h"
 #include "../gameplay/modify.h"
 #include "../gameplay/move.h"
@@ -15,32 +16,29 @@ using namespace std;
 const string ERROR = "Loi: Chuc nang khong ton tai";
 
 void logo() {
-	cout << "__________ ____  __.   ________                       " << endl;
-	cout << "\\______   \\    |/ _|  /  _____/_____    _____   ____  " << endl;
-	cout << " |    |  _/      <   /   \\  ___\\__  \\  /     \\_/ __ \\ " << endl;
-	cout << " |    |   \\    |  \\  \\    \\_\\  \\/ __ \\|  Y Y  \\  ___/ " << endl;
-	cout << " |______  /____|__ \\  \\______  (____  /__|_|  /\\___  >" << endl;
-	cout << "        \\/        \\/         \\/     \\/      \\/     \\/ " << endl;
+//	cout << "__________ ____  __.   ________                       " << endl;
+//	cout << "\\______   \\    |/ _|  /  _____/_____    _____   ____  " << endl;
+//	cout << " |    |  _/      <   /   \\  ___\\__  \\  /     \\_/ __ \\ " << endl;
+//	cout << " |    |   \\    |  \\  \\    \\_\\  \\/ __ \\|  Y Y  \\  ___/ " << endl;
+//	cout << " |______  /____|__ \\  \\______  (____  /__|_|  /\\___  >" << endl;
+//	cout << "        \\/        \\/         \\/     \\/      \\/     \\/ " << endl;
 	init();
 }
 
 void mainMenu() {
 	cout << endl;
 	cout << "Lua chon chuc nang bang cac so tuong ung" << endl;
-	cout << "[1] - Choi game		[2] - Thong tin		[3] - Thoat" << endl;
-	chooseMainMenu();
+	cout << "[1] - Choi game		[2] - Thong tin		[0] - Thoat" << endl;
+	selectMainMenu();
 }
 
-void chooseMainMenu() {
+void selectMainMenu() {
 	cout << "Menu chinh:$ ";
 	__fpurge(stdin);
 	char ch = cin.get();
 
 	switch (ch) {
 	case '1':
-		cout << endl;
-		showMapInfo();
-		cout << endl;
 		gameMenu();
 		break;
 
@@ -48,7 +46,7 @@ void chooseMainMenu() {
 		showInfo();
 		break;
 
-	case '3':
+	case '0':
 		cout << "Ban co chac chan muon thoat? [Y/N] ";
 		__fpurge(stdin);
 		ch = cin.get();
@@ -61,24 +59,25 @@ void chooseMainMenu() {
 
 	default:
 		cout << ERROR << endl;
-		chooseMainMenu();
+		selectMainMenu();
 	}
 }
 
 void gameMenu() {
-	cout << "[1] - Di chuyen		[2] - Tim duong" << endl;
-	cout << "[3] - Them map		[4] - Sua map" << endl;
-	cout << "[5] - Quay lai" << endl;
-	chooseGameMenu();
+	cout << endl;
+	cout << "[1] - Di chuyen		[2] - Tim duong		[3] - Them map" << endl;
+	cout << "[4] - Sua map		[5] - Kiem tra file	[0] - Quay lai" << endl;
+	selectGameMenu();
 }
 
-void chooseGameMenu() {
+void selectGameMenu() {
 	cout << "Game menu:$ ";
 	__fpurge(stdin);
 	char ch = cin.get();
 
 	switch (ch) {
 	case '1':
+		showMapInfo();
 		move();
 		break;
 
@@ -95,11 +94,48 @@ void chooseGameMenu() {
 		break;
 
 	case '5':
+		checkValid();
+		break;
+
+	case '0':
 		mainMenu();
 		break;
 
 	default:
 		cout << ERROR << endl;
-		chooseGameMenu();
+		selectGameMenu();
+	}
+}
+
+void editMapMenu() {
+	cout << endl;
+	cout << "[1] - Chinh sua cac doi tuong hien co trong map" << endl;
+	cout << "[2] - Tao moi cac doi tuong" << endl;
+	cout << "[0] - Quay lai" << endl;
+	selectEditMapMenu();
+}
+
+void selectEditMapMenu() {
+	cout << "Menu chinh sua: $ ";
+
+	__fpurge(stdin);
+	char ch = cin.get();
+
+	switch (ch) {
+	case '1':
+		editObject();
+		break;
+
+	case '2':
+		addObject();
+		break;
+
+	case '0':
+		editMap();
+		break;
+
+	default:
+		cout << "Loi: Chuc nang khong ton tai." << endl;
+		selectEditMapMenu();
 	}
 }

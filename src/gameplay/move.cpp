@@ -8,15 +8,24 @@
 
 using namespace std;
 
+/*
+ * Chuc nang di chuyen:
+ * nguoi choi se di chuyen bang cach nhap vao STT cua doi tuong muon chuyen den
+ * sau khi di chuyen se hien thi vi tri hien tai cua nguoi choi
+ *
+ * neu la doi tuong dac biet thi nguoi choi se duoc chuyen den map moi
+ * va in ra tat ca cac doi tuong co trong map moi
+ */
 void move() {
-	int ch;
+	cout << endl;
 	cout << "Nhap STT tuong ung cac doi tuong de di chuyen ([0] - Quay lai): ";
+	int ch;
 	cin >> ch;
 	if (ch == 0) {
 		gameMenu();
 	}
 
-	List<Object> *listObj = currMap.data;
+	List<Object> *listObj = curMap.data;
 	while (listObj->data->_no != ch) {
 		if (listObj->next == 0x0) {
 			cout << "Loi: Doi tuong khong ton tai." << endl;
@@ -27,17 +36,19 @@ void move() {
 
 	Object *go = listObj->data;
 	if (go->spclObj == 0x0) {
-		currMap.currPos = go->position;
-		cout << "Ban vua di chuyen den vi tri: " << currMap.currPos << endl;
+		curMap.currPos = go->position;
+		cout << "Ban vua di chuyen den vi tri: " << curMap.currPos << " (" << go->name << ")" << endl;
 		move();
 	}
 
 	string mapID = "MAP" + go->spclObj->gotoMap;
 	string pos = go->spclObj->positionMap;
 
-	currMap = *getList(&data, mapID);
-	currMap.currPos = pos;
+	// thay doi du lieu cua map hien tai la map duoc chuyen den
+	curMap = *getList(data, mapID);
+	curMap.currPos = pos;
 
+	// hien thi chi tiet cac doi tuong co trong map moi
 	showMapInfo();
 	move();
 }

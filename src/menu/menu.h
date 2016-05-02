@@ -4,9 +4,12 @@
 
 void logo();
 void mainMenu();
-void chooseMainMenu();
+void selectMainMenu();
 
 void gameMenu();
-void chooseGameMenu();
+void selectGameMenu();
+
+void editMapMenu();
+void selectEditMapMenu();
 
 #endif /* MENU_MENU_H_ */

@@ -1,10 +1,10 @@
 
-#ifndef DATA_DATA_H_
-#define DATA_DATA_H_
+#ifndef SRC_DATA_DATA_H_
+#define SRC_DATA_DATA_H_
 
 #include "../lib/map.h"
 
-List<Map> *readData();
-void show(List<Map> *listMap);
+List<Map<List<Object> > > *readData();
+void show(List<Map<List<Object> > > *);
 
-#endif /* DATA_DATA_H_ */
+#endif /* SRC_DATA_DATA_H_ */

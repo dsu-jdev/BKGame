@@ -733,6 +733,11 @@ models/windows.obj
 2,2,2
 0,0,0
 1,1,1
+GOTO30
+3
+2,2,0
+2,2,2
+0.2
 OBJ093
 airConditioner
 models/airConditioner.obj
@@ -930,3 +935,4 @@ GOTO34
 02
 6,7,0
 6,5,3
+0.5

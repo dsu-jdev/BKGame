@@ -29,6 +29,5 @@ struct Object {
 };
 
 void showObject(List<Object> *listObj);
-Object *getObject(List<Object> *listObj, int no);
 
 #endif /* LIB_OBJECT_H_ */
