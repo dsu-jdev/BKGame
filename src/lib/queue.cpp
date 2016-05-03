@@ -6,7 +6,6 @@ bool queueEmpty() {
 	if (Q == 0x0) {
 		return true;
 	}
-
 	return false;
 }
 

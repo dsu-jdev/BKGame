@@ -28,7 +28,7 @@ void move() {
 	List<Object> *listObj = curMap.data;
 	while (listObj->data->_no != ch) {
 		if (listObj->next == 0x0) {
-			cout << "Loi: Doi tuong khong ton tai." << endl;
+			cout << ERROR[3] << endl;
 			move();
 		}
 		listObj = listObj->next;

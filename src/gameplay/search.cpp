@@ -15,7 +15,9 @@ using namespace std;
 int p[MAX];
 char color[MAX];
 
-
+/*
+ * Thuat toan duyet do thi theo chieu rong (Breadth-First Search)
+ */
 void BFS(string mapID) {
 	int s;
 	istringstream(mapID.substr(3)) >> s;
@@ -49,6 +51,11 @@ void BFS(string mapID) {
 	}
 }
 
+/*
+ * Nhap vao ma mot map bat ky
+ * in ra duong di tu map hien tai den map do theo thuat toan BFS
+ * va thong ke cac mo hinh xuat hien nhieu nhat tren duong di
+ */
 void printPath(string map1, string map2) {
 	int u;
 	istringstream(map1.substr(3)) >> u;
@@ -154,7 +161,7 @@ void findPath() {
 		mapID = "MAP" + mapID;
 		map = getList(data, mapID);
 		if (map == 0x0) {
-			cout << "Loi: Ma ban do khong ton tai." << endl;
+			cout << ERROR[1] << endl;
 		}
 	} while (map == 0x0);
 

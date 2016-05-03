@@ -1,5 +1,4 @@
 #include <cstdlib>
-#include <iostream>
 #include <stdio_ext.h>
 
 #include "menu.h"
@@ -11,17 +10,13 @@
 #include "../gameplay/search.h"
 #include "../info/info.h"
 
-using namespace std;
-
-const string ERROR = "Loi: Chuc nang khong ton tai";
-
 void logo() {
-//	cout << "__________ ____  __.   ________                       " << endl;
-//	cout << "\\______   \\    |/ _|  /  _____/_____    _____   ____  " << endl;
-//	cout << " |    |  _/      <   /   \\  ___\\__  \\  /     \\_/ __ \\ " << endl;
-//	cout << " |    |   \\    |  \\  \\    \\_\\  \\/ __ \\|  Y Y  \\  ___/ " << endl;
-//	cout << " |______  /____|__ \\  \\______  (____  /__|_|  /\\___  >" << endl;
-//	cout << "        \\/        \\/         \\/     \\/      \\/     \\/ " << endl;
+	cout << "__________ ____  __.   ________                       " << endl;
+	cout << "\\______   \\    |/ _|  /  _____/_____    _____   ____  " << endl;
+	cout << " |    |  _/      <   /   \\  ___\\__  \\  /     \\_/ __ \\ " << endl;
+	cout << " |    |   \\    |  \\  \\    \\_\\  \\/ __ \\|  Y Y  \\  ___/ " << endl;
+	cout << " |______  /____|__ \\  \\______  (____  /__|_|  /\\___  >" << endl;
+	cout << "        \\/        \\/         \\/     \\/      \\/     \\/ " << endl;
 	init();
 }
 
@@ -35,22 +30,24 @@ void mainMenu() {
 void selectMainMenu() {
 	cout << "Menu chinh:$ ";
 	__fpurge(stdin);
-	char ch = cin.get();
+	int ch;
+	char ch_exit;
+	cin >> ch;
 
 	switch (ch) {
-	case '1':
+	case 1:
 		gameMenu();
 		break;
 
-	case '2':
+	case 2:
 		showInfo();
 		break;
 
-	case '0':
+	case 0:
 		cout << "Ban co chac chan muon thoat? [Y/N] ";
 		__fpurge(stdin);
-		ch = cin.get();
-		if (ch == 'Y' || ch == 'y' || ch == '\n') {
+		ch_exit = cin.get();
+		if (ch_exit == 'Y' || ch_exit == 'y' || ch_exit == '\n') {
 			exit(0);
 		} else {
 			mainMenu();
@@ -58,7 +55,7 @@ void selectMainMenu() {
 		break;
 
 	default:
-		cout << ERROR << endl;
+		cout << ERROR[0] << endl;
 		selectMainMenu();
 	}
 }
@@ -73,36 +70,37 @@ void gameMenu() {
 void selectGameMenu() {
 	cout << "Game menu:$ ";
 	__fpurge(stdin);
-	char ch = cin.get();
+	int ch;
+	cin >> ch;
 
 	switch (ch) {
-	case '1':
+	case 1:
 		showMapInfo();
 		move();
 		break;
 
-	case '2':
+	case 2:
 		findPath();
 		break;
 
-	case '3':
+	case 3:
 		addMap();
 		break;
 
-	case '4':
+	case 4:
 		editMap();
 		break;
 
-	case '5':
+	case 5:
 		checkValid();
 		break;
 
-	case '0':
+	case 0:
 		mainMenu();
 		break;
 
 	default:
-		cout << ERROR << endl;
+		cout << ERROR[0] << endl;
 		selectGameMenu();
 	}
 }
@@ -117,25 +115,25 @@ void editMapMenu() {
 
 void selectEditMapMenu() {
 	cout << "Menu chinh sua: $ ";
-
 	__fpurge(stdin);
-	char ch = cin.get();
+	int ch;
+	cin >> ch;
 
 	switch (ch) {
-	case '1':
+	case 1:
 		editObject();
 		break;
 
-	case '2':
+	case 2:
 		addObject();
 		break;
 
-	case '0':
+	case 0:
 		editMap();
 		break;
 
 	default:
-		cout << "Loi: Chuc nang khong ton tai." << endl;
+		cout << ERROR[0] << endl;
 		selectEditMapMenu();
 	}
 }

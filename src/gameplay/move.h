@@ -1,7 +1,7 @@
 
-#ifndef GAMEPLAY_MOVE_H_
-#define GAMEPLAY_MOVE_H_
+#ifndef SRC_GAMEPLAY_MOVE_H_
+#define SRC_GAMEPLAY_MOVE_H_
 
 void move();
 
-#endif /* GAMEPLAY_MOVE_H_ */
+#endif /* SRC_GAMEPLAY_MOVE_H_ */

@@ -29,8 +29,8 @@ void addObject() {
 	string objID;
 	cin >> objID;
 	if (objID == "0") {
-		List<Object> *l = 0x0;
-		putMap(map, mapID, l);
+		List<Object> *t = 0x0;
+		putMap(map, mapID, t);
 		return;
 	}
 
@@ -73,24 +73,26 @@ void addObject() {
 		}
 		cout << endl;
 
+		string gotoMapID;
 		Map<List<Object> > *gotoMap;
 
 		do {
 			cout << "Nhap ma ban do phai chuyen den (tru ky tu MAP): ";
+			__fpurge(stdin);
 			cin >> spclObj->gotoMap;
-			string gotoMapID = "MAP" + spclObj->gotoMap;
+			gotoMapID = "MAP" + spclObj->gotoMap;
 
 			if (gotoMapID == mapID) {
-				cout << "Loi: Khong the chuyen den chinh no." << endl;
+				cout << ERROR[4] << endl;
 				continue;
 			}
 
 			gotoMap = getList(data, gotoMapID);
 			if (gotoMap == 0x0) {
-				cout << "Loi: Ma ban do khong ton tai." << endl;
+				cout << ERROR[1] << endl;
 			}
 
-		} while (gotoMap == 0x0);
+		} while (gotoMapID == mapID || gotoMap == 0x0);
 
 		cout << "Vi tri x,y,z cua ban do moi: ";
 		cin >> spclObj->positionMap;
@@ -137,9 +139,11 @@ void addObject() {
 		gotoObj->spclObj = gotoSpclObj;
 
 		addList(gotoMap->data, mapID, gotoObj);
-		putMap(gotoMap, mapID, new List<Object>);
+		List<Object> *t = 0x0;
+		putMap(gotoMap, mapID, t);
 	}
 
+	// LOI O DAY!!!
 	addList(listObj, objID, obj);
 	putMap(map, mapID, listObj);
 
@@ -179,7 +183,7 @@ void editObject() {
 			}
 
 			if (listObj == 0x0) {
-				cout << "Loi: Doi tuong khong ton tai." << endl;
+				cout << ERROR[3] << endl;
 				continue;
 			}
 
@@ -231,7 +235,7 @@ void addMap() {
 	List<Map<List<Object> > > *i = data;
 	while (i != 0x0) {
 		if (i->id == mapID) {
-			cout << "Loi: Ma ban do da ton tai." << endl;
+			cout << ERROR[2] << endl;
 			addMap();
 		}
 		i = i->next;
@@ -272,7 +276,7 @@ void editMap() {
 		mapID = "MAP" + mapID;
 		map = getList(data, mapID);
 		if (map == 0x0) {
-			cout << "Loi: Ma ban do khong ton tai." << endl;
+			cout << ERROR[1] << endl;
 			editMap();
 		}
 

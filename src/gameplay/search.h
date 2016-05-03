@@ -1,7 +1,7 @@
 
-#ifndef GAMEPLAY_SEARCH_H_
-#define GAMEPLAY_SEARCH_H_
+#ifndef SRC_GAMEPLAY_SEARCH_H_
+#define SRC_GAMEPLAY_SEARCH_H_
 
 void findPath();
 
-#endif /* GAME_PLAY_SEARCH_H_ */
+#endif /* SRC_GAME_PLAY_SEARCH_H_ */
