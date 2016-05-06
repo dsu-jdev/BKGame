@@ -45,6 +45,10 @@ void move() {
 	string pos = go->spclObj->positionMap;
 
 	// thay doi du lieu cua map hien tai la map duoc chuyen den
+	if (getList(data, mapID) == 0x0) {
+		cout << ERROR[1] << endl;
+		move();
+	}
 	curMap = *getList(data, mapID);
 	curMap.currPos = pos;
 

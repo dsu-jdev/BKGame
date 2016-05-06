@@ -29,16 +29,19 @@ void addObject() {
 	string objID;
 	cin >> objID;
 	if (objID == "0") {
-		List<Object> *t = 0x0;
-		putMap(map, mapID, t);
 		return;
 	}
 
+	// tao ra doi tuong moi de luu vao map
 	Object *obj= new Object;
 	obj->id = "OBJ" + objID;
 
 	cout << "Ten doi tuong: ";
 	cin >> obj->name;
+
+	cout << "Ten mo hinh: ";
+	cin >> obj->directory;
+	obj->directory = "models/" + obj->directory + ".obj";
 
 	cout << "Vi tri x,y,z: ";
 	cin >> obj->position;
@@ -77,7 +80,7 @@ void addObject() {
 		Map<List<Object> > *gotoMap;
 
 		do {
-			cout << "Nhap ma ban do phai chuyen den (tru ky tu MAP): ";
+			cout << "Nhap ma ban do phai chuyen den: MAP";
 			__fpurge(stdin);
 			cin >> spclObj->gotoMap;
 			gotoMapID = "MAP" + spclObj->gotoMap;
@@ -87,6 +90,7 @@ void addObject() {
 				continue;
 			}
 
+			// Lay du lieu cua map duoc chuyen den
 			gotoMap = getList(data, gotoMapID);
 			if (gotoMap == 0x0) {
 				cout << ERROR[1] << endl;
@@ -104,6 +108,9 @@ void addObject() {
 		cout << "****************" << endl;
 		cout << "Nhap thong tin doi tuong moi cua ban do duoc chuyen den" << endl;
 
+		// tao ra doi tuong moi tren map duoc chuyen den
+		// va cung la doi tuong dac biet
+		// de quay lai map hien tai
 		Object *gotoObj = new Object;
 		cout << "Ma doi tuong: OBJ";
 		string gotoID;
@@ -112,6 +119,8 @@ void addObject() {
 
 		cout << "Ten doi tuong: ";
 		cin >> gotoObj->name;
+
+		gotoObj->directory = obj->directory;
 
 		cout << "Vi tri x,y,z: ";
 		cin >> gotoObj->position;
@@ -138,12 +147,18 @@ void addObject() {
 		gotoSpclObj->positionObj = gotoObj->position;
 		gotoObj->spclObj = gotoSpclObj;
 
-		addList(gotoMap->data, mapID, gotoObj);
-		List<Object> *t = 0x0;
+
+		List<Object> *t = gotoMap->data;
+		if (t == 0x0) {
+			t = new List<Object>;
+		}
+		addList(t, mapID, gotoObj);
 		putMap(gotoMap, mapID, t);
 	}
 
-	// LOI O DAY!!!
+	if (listObj == 0x0) {
+		listObj = new List<Object>;
+	}
 	addList(listObj, objID, obj);
 	putMap(map, mapID, listObj);
 
@@ -160,14 +175,14 @@ void addObject() {
  */
 void editObject() {
 	cout << endl;
-	if (map->data == 0x0) {
+	if (listObj == 0x0) {
 		cout << mapID << " hien khong co doi tuong, nhan [Enter] de them moi cac doi tuong...";
 		__fpurge(stdin);
 		cin.get();
 		addObject();
 	} else {
 		cout << "Cac doi tuong co trong " << mapID << endl;
-		showObject(map->data);
+		showObject(listObj);
 		cout << endl;
 		while (true) {
 			cout << "Nhap STT tuong ung cac doi tuong de sua ([0] - Quay lai): ";
@@ -177,7 +192,6 @@ void editObject() {
 				editMapMenu();
 			}
 
-			listObj = map->data;
 			while (listObj != 0x0 && listObj->data->_no != ch) {
 				listObj = listObj->next;
 			}
@@ -242,6 +256,7 @@ void addMap() {
 	}
 
 	map = new Map<List<Object> >;
+	map->data = 0x0;
 	listObj = new List<Object>;
 
 	addObject();
@@ -280,6 +295,7 @@ void editMap() {
 			editMap();
 		}
 
+		listObj = map->data;
 		editMapMenu();
 	}
 }
