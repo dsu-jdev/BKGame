@@ -1,8 +1,10 @@
 #include <iostream>
+#include <stdio_ext.h>
 
 #include <iomanip>
 
 #include "map_info.h"
+#include "../menu/menu.h"
 
 using namespace std;
 
@@ -24,7 +26,6 @@ void showMapInfo() {
 	cout << "================================================================" << endl;
 	cout << "Map hien tai: " << curMap.id << endl;
 	cout << "Vi tri: " << curMap.currPos << endl;
-	cout << "Cac doi tuong co trong map:" << endl;
 	showObject(curMap.data);
 	cout << "================================================================" << endl;
 }

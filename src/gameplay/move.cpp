@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio_ext.h>
 
 #include "map_info.h"
 #include "move.h"

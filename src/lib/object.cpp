@@ -1,8 +1,19 @@
 #include <iomanip>
+#include <stdio_ext.h>
 
 #include "object.h"
+#include "../gameplay/map_info.h"
+#include "../menu/menu.h"
 
 void showObject(List<Object> *listObj) {
+	if (listObj->data == 0) {
+		cout << curMap.id << " khong co doi tuong nao. Nhan [Enter] de quay lai menu...";
+		__fpurge(stdin);
+		cin.get();
+		gameMenu();
+	}
+
+	cout << "Cac doi tuong co trong map:" << endl;
 	cout << "STT Ma DT   Ten doi tuong       Vi tri      Ti le   Goc xoay" << endl;
 	List<Object> *i = listObj;
 	int no = 1;

@@ -1,4 +1,6 @@
 #include <cstdlib>
+#include <ctype.h>
+#include <sstream>
 #include <stdio_ext.h>
 
 #include "menu.h"
@@ -29,10 +31,16 @@ void mainMenu() {
 
 void selectMainMenu() {
 	cout << "Menu chinh:$ ";
-	__fpurge(stdin);
-	int ch;
+	string s;
+	cin >> s;
+	if (isalpha(s[0])) {
+		cout << ERROR[0] << endl;
+		selectMainMenu();
+	}
+
 	char ch_exit;
-	cin >> ch;
+	int ch;
+	istringstream(s) >> ch;
 
 	switch (ch) {
 	case 1:
@@ -69,9 +77,16 @@ void gameMenu() {
 
 void selectGameMenu() {
 	cout << "Game menu:$ ";
-	__fpurge(stdin);
+	string s;
+	cin >> s;
+	if (isalpha(s[0])) {
+		cout << ERROR[0] << endl;
+		selectMainMenu();
+	}
+
+	char ch_exit;
 	int ch;
-	cin >> ch;
+	istringstream(s) >> ch;
 
 	switch (ch) {
 	case 1:
@@ -115,9 +130,16 @@ void editMapMenu() {
 
 void selectEditMapMenu() {
 	cout << "Menu chinh sua: $ ";
-	__fpurge(stdin);
+	string s;
+	cin >> s;
+	if (isalpha(s[0])) {
+		cout << ERROR[0] << endl;
+		selectMainMenu();
+	}
+
+	char ch_exit;
 	int ch;
-	cin >> ch;
+	istringstream(s) >> ch;
 
 	switch (ch) {
 	case 1:

@@ -12,9 +12,9 @@ void showInfo() {
 	cout << "Thong tin ve tro choi: " << endl;
 	cout << "BKGame -- version 1.0" << endl;
 	cout << "Cac thanh vien trong nhom: " << endl;
-	cout << "	..." << endl;
-	cout << "	..." << endl;
-	cout << "	..." << endl;
+	cout << "	Tran Hoang Long - 20146456" << endl;
+	cout << "	Bui Dinh Su - 20146619" << endl;
+	cout << "	Do Duc Thinh - 20146673" << endl;
 	cout << "	..." << endl;
 	cout << "	..." << endl;
 	cout << "	..." << endl;

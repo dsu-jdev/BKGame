@@ -7,7 +7,7 @@
  * Tra ve List cac map cung voi cac doi tuong ben trong map
  */
 List<Map<List<Object> > > *readData() {
-	ifstream ifs("test2");
+	ifstream ifs("test4");
 
 	List<Map<List<Object> > > *listMap = new List<Map<List<Object> > >;
 	Map<List<Object> > *map;
@@ -40,7 +40,6 @@ List<Map<List<Object> > > *readData() {
 			ifs >> obj->swivelAngle;
 
 			addList(listObj, objID, obj);
-			putMap(map, id, listObj);
 		}
 
 		if (str.find("GOTO") == 0) {
@@ -57,6 +56,7 @@ List<Map<List<Object> > > *readData() {
 
 			putMap(map, mapID, new List<Object>);
 		}
+		putMap(map, id, listObj);
 	}
 
 	addList(listMap, id, map);
