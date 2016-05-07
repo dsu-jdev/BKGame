@@ -132,7 +132,7 @@ void printPath(string map1, string map2) {
 		}
 		cout << endl;
 
-		cout << "Cac doi tuong xuat hien nhieu nhat tren duong di:" << endl;
+		cout << "Cac mo hinh xuat hien nhieu nhat tren duong di:" << endl;
 		while (freq != 0x0) {
 			if (*freq->data >= 3) {
 				cout << freq->id.substr(7, freq->id.find(".") - 7)  << ": " << *freq->data << " lan" << endl;

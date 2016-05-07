@@ -21,6 +21,9 @@ void checkValid() {
 	int deficient = 0;
 	int redundant = 0;
 
+	List<void> *directory = new List<void>;
+	directory->next = 0x0;
+
 	List<Map<List<Object> > > *i = data;
 	while (i != 0x0) {
 		cout << "Dang kiem tra " << i->id << "..." << endl;
@@ -30,8 +33,14 @@ void checkValid() {
 			cout << setw(32) << left << "\t" + obj->name + " (" + obj->id + ")";
 
 			string dir = obj->directory.substr(0, 6) + "/" + obj->directory.substr(6);
+
 			ifstream ifs(dir.c_str());
 			if (ifs.good()) {
+				if (getList(directory, dir) == 0x0) {
+					void *t = 0x0;
+					addList(directory, dir, t);
+				}
+
 				string modelName;
 				ifs >> modelName;
 
@@ -47,10 +56,8 @@ void checkValid() {
 				} else {
 					if (byteData > data.size()) {
 						cout << "Thieu byte";
-						deficient++;
 					} else {
 						cout << "Thua byte";
-						redundant++;
 					}
 				}
 			} else {
@@ -63,6 +70,11 @@ void checkValid() {
 
 		cout << endl;
 		i = i->next;
+	}
+
+	List<void> *k = directory;
+	while (k != 0x0) {
+
 	}
 
 	cout << "Ket qua:" << endl;
