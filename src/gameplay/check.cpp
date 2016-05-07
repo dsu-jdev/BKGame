@@ -36,7 +36,14 @@ void checkValid() {
 
 			ifstream ifs(dir.c_str());
 			if (ifs.good()) {
-				if (getList(directory, dir) == 0x0) {
+				List<void> *k = directory;
+				while (k != 0X0) {
+					if (k->id == dir) {
+						break;
+					}
+					k = k->next;
+				}
+				if (k == 0x0) {
 					void *t = 0x0;
 					addList(directory, dir, t);
 				}
@@ -52,14 +59,11 @@ void checkValid() {
 
 				if (byteData == data.size()) {
 					cout << "OK!";
-//					OK++;
 				} else {
 					if (byteData > data.size()) {
 						cout << "Thieu byte";
-//						deficient++;
 					} else {
 						cout << "Thua byte";
-//						redundant++;
 					}
 				}
 			} else {
