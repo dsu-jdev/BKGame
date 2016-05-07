@@ -7,7 +7,7 @@
  * Tra ve List cac map cung voi cac doi tuong ben trong map
  */
 List<Map<List<Object> > > *readData() {
-	ifstream ifs("test4");
+	ifstream ifs("data.map");
 
 	List<Map<List<Object> > > *listMap = new List<Map<List<Object> > >;
 	Map<List<Object> > *map;

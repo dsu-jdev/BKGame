@@ -52,12 +52,14 @@ void checkValid() {
 
 				if (byteData == data.size()) {
 					cout << "OK!";
-					OK++;
+//					OK++;
 				} else {
 					if (byteData > data.size()) {
 						cout << "Thieu byte";
+//						deficient++;
 					} else {
 						cout << "Thua byte";
+//						redundant++;
 					}
 				}
 			} else {
@@ -74,13 +76,32 @@ void checkValid() {
 
 	List<void> *k = directory;
 	while (k != 0x0) {
+		ifstream ifs(k->id.c_str());
+		string modelName;
+		ifs >> modelName;
 
+		unsigned byteData;
+		ifs >> byteData;
+
+		string data;
+		ifs >> data;
+
+		if (byteData == data.size()) {
+			OK++;
+		} else {
+			if (byteData > data.size()) {
+				deficient++;
+			} else {
+				redundant++;
+			}
+		}
+		k = k->next;
 	}
 
 	cout << "Ket qua:" << endl;
-	cout << "\tSo doi tuong du byte: " << OK << endl;
-	cout << "\tSo doi tuong thieu byte: " << deficient << endl;
-	cout << "\tSo doi tuong thua byte: " << redundant << endl;
+	cout << "\tSo mo hinh du byte: " << OK << endl;
+	cout << "\tSo mo hinh thieu byte: " << deficient << endl;
+	cout << "\tSo mo hinh thua byte: " << redundant << endl;
 	cout << "\tSo doi tuong khong co file mo hinh: " << FALSE << endl;
 
 	cout << "Nhan phim [Enter] de quay lai...";
